@@ -1,6 +1,6 @@
 # WiiLink WFC Server (Docker Edition)
 
-A modern, open-source server replacement for Nintendo Wi-Fi Connection, with easy Docker deployment.
+A modern, open-source server replacement for Nintendo Wi-Fi Connection, with easy Docker deployment. I had a lot of help from Github copilot.
 
 ## Getting Started
 

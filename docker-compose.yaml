@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mkdata
+      POSTGRES_USER: wiilink
+      POSTGRES_PASSWORD: wiilinkpass
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    ports:
+      - "5432:5432"
+
+  wfc-server:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./config.xml:/app/config.xml:ro
+      - ./payload:/app/payload
+    environment:
+      # Used by config.xml, not directly by server
+      - DATABASE_HOST=db
+      - DATABASE_USER=wiilink
+      - DATABASE_PASSWORD=wiilinkpass
+      - DATABASE_NAME=mkdata
+    ports:
+      - "53:53/tcp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "27900:27900/tcp"
+      - "27901:27901/tcp"
+      - "28910:28910/tcp"
+      - "29900:29900/tcp"
+      - "29901:29901/tcp"
+      - "29920:29920/tcp"
+      - "29998:29998/tcp"
+      - "29999:29999/tcp"
+      - "27900-29999:27900-29999/udp"
+      - "27900:27900/udp"
+      - "27901:27901/udp"
+      - "28910:28910/udp"
+      - "29900:29900/udp"
+      - "29901:29901/udp"
+      - "29920:29920/udp"
+      - "29998:29998/udp"
+      - "29999:29999/udp"
+      #- "2-65535:2-65535/udp" # this might cause issues with other containers, but may be a fix for disconnects shortly after a race starts with error E[QR2:172.18.0.1:38053]: Public IP mismatch
+    command: ["/app/wwfc"]
+
+volumes:
+  db_data:

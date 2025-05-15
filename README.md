@@ -1,15 +1,36 @@
-# wwfc
-WiiLink Wi-Fi Connection aims to be an open source server replacement for Nintendo Wi-Fi Connection. Currently, a work in progress
+# WiiLink WFC Server (Docker Edition)
 
-## Current Support
-- Matchmaking (No server sorting yet)
-- Adding Friends
+A modern, open-source server replacement for Nintendo Wi-Fi Connection, with easy Docker deployment.
 
-## Setup
-You will need:
-- PostgreSQL
+## Getting Started
 
-1. Create a PostgreSQL database. Note the database name, username, and password.
-2. Use the `schema.sql` found in the root of this repo and import it into your PostgreSQL database.
-3. Copy `config-example.xml` to `config.xml` and insert all the correct data.
-4. Run `go build`. The resulting executable `wwfc` is the executable of the server.
+### Prerequisites
+- Docker and Docker Compose
+
+### Quickstart
+
+```sh
+git clone https://github.com/yourusername/wfc-server
+cd wfc-server
+docker compose up --build
+```
+You need to generate a payload for the server and a gecko code for the dolphin instance with the wfc-patcher.
+
+
+### Configuration
+
+- Edit `config.xml` for server options.
+- See comments inside the file for descriptions.
+
+### Exposing Ports
+
+Make sure to expose these UDP ports: `27900-29999` (or as needed for your use case).
+
+### Troubleshooting
+
+- **Public IP mismatch:** See [FAQ](#faq).
+- **Database connection issues:** Ensure the `db` service is running.
+
+## Contributing
+
+Pull requests welcome!

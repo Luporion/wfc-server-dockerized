@@ -28,7 +28,7 @@ Make sure to expose these UDP ports: `27900-29999` (or as needed for your use ca
 
 ### Troubleshooting
 
-- **Public IP mismatch:** See [FAQ](#faq).
+- **Public IP mismatch:** still trying to fix this myself
 - **Database connection issues:** Ensure the `db` service is running.
 
 ## Contributing
